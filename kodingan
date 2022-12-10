@@ -34,16 +34,16 @@ if (password == 'unila'):
         link = requests.get(cuaca)
         skala = input("Ingin melihat cuaca skala provinsi atau kabupaten/kota? (1: provinsi, 2: kabupaten/kota)\t: ")
 
-    if skala == '1':
-        provinsi = input("Masukan nama provinsi (pisahkan spasi dengan '-' dan gunakan huruf kecil)\t: ")
-        outputP = cariProvinsi(provinsi)
-        output = outputP.json()
+        if skala == '1':
+            provinsi = input("Masukan nama provinsi (pisahkan spasi dengan '-' dan gunakan huruf kecil)\t: ")
+            outputP = cariProvinsi(provinsi)
+            output = outputP.json()
 
-    elif skala == '2':
-        provinsi = input("Masukan nama provinsi (pisahkan spasi dengan '-' dan gunakan huruf kecil)\t: ")
-        kabupaten = input("Masukan nama kabupaten/kota (pisahkan spasi dengan '-' dan gunakan huruf kecil)\t: ")
-        outputK = cariKabupaten(provinsi, kabupaten)
-        output = outputK.json()
+        elif skala == '2':
+            provinsi = input("Masukan nama provinsi (pisahkan spasi dengan '-' dan gunakan huruf kecil)\t: ")
+            kabupaten = input("Masukan nama kabupaten/kota (pisahkan spasi dengan '-' dan gunakan huruf kecil)\t: ")
+            outputK = cariKabupaten(provinsi, kabupaten)
+            output = outputK.json()
 
     print(output)
 
