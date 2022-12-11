@@ -1,0 +1,77 @@
+import requests
+import json
+import API
+import os
+
+url = "https://cuaca-gempa-rest-api.vercel.app/"
+gempa = "https://cuaca-gempa-rest-api.vercel.app/quake"
+cuaca = "https://cuaca-gempa-rest-api.vercel.app/weather/"
+
+
+def main():
+    listData = ["1. Gempa Terkini", "2. Cuaca"]
+    n = 1
+    max = 10
+
+    while n < max:
+        os.system('cls')
+        print("==============================\n")
+        print("| SELAMAT DATANG DI APP BMKG |\n")
+        print("==============================\n\n")
+
+        password = input("Masukan password untuk melanjutkan: ")
+
+        if (password == "unila"):
+            for x in listData:
+                print(x)
+
+            try:
+                pilihData = int(input("Pilih data yang ingin dilihat: "))
+            except ValueError:
+                print('Harus Integer')
+
+            if pilihData == 1:
+                output = API.gempa
+                call = API.API_Gempa.cariGempaTerkini(gempa)
+                infoGempaTerkini = requests.get(call)
+                infoGempaTerkini = infoGempaTerkini.json()
+                print(infoGempaTerkini)
+
+            elif pilihData == 2:
+                skala = int(input("Ingin melihat cuaca skala provinsi atau kabupaten/kota? (1: provinsi, 2: kabupaten/kota): "))
+                if skala == 1:
+                    try:
+                        provinsi = input("Masukan nama provinsi (pisahkan spasi dengan '-'): ")
+                        provinsi = provinsi.lower()
+                        output = API.API_Cuaca_Provinsi.cariCuacaProvinsi(provinsi)
+                        output = output.json()
+                        print(output)
+                    finally:
+                        print("Hasil sudah ditampilkan")
+
+                elif skala == 2:
+                    try:
+                        provinsi = input("Masukan nama provinsi (pisahkan spasi dengan '-'): ")
+                        kabupaten = input("Masukan nama kabupaten/kota (pisahkan spasi dengan '-'): ")
+                        provinsi = provinsi.lower()
+                        kabupaten = kabupaten.lower()
+                        output = API.API_Cuaca_Kabupaten.cariCuacaKabupaten(provinsi, kabupaten)
+                        output = output.json()
+                        print(output)
+                    finally:
+                        print("Hasil sudah ditampilkan")
+
+        else:
+            print("Password salah")
+
+        ulangi = input('ulangi ? Y/N : ')
+        if ulangi == 'Y' or ulangi == 'y':
+            max = max + 1
+        else:
+            n = n * 1000
+
+    f = open("Credits.txt")
+    print(f.readlines())
+
+if __name__ == "__main__":
+    main()
