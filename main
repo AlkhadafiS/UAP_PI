@@ -2,6 +2,7 @@ import requests
 import json
 import API
 import os
+import sys
 
 url = "https://cuaca-gempa-rest-api.vercel.app/"
 gempa = "https://cuaca-gempa-rest-api.vercel.app/quake"
@@ -9,7 +10,7 @@ cuaca = "https://cuaca-gempa-rest-api.vercel.app/weather/"
 
 
 def main():
-    listData = ["1. Gempa Terkini", "2. Cuaca"]
+    listData = ["1. Gempa Terkini", "2. Cuaca", "3. Credit"]
     n = 1
     max = 10
 
@@ -60,18 +61,25 @@ def main():
                         print(output)
                     finally:
                         print("Hasil sudah ditampilkan")
+            elif pilihData == 3:
+                    f = open("Credits.txt")
+                    print(f.readlines())
 
         else:
-            print("Password salah")
-
-        ulangi = input('ulangi ? Y/N : ')
-        if ulangi == 'Y' or ulangi == 'y':
-            max = max + 1
-        else:
-            n = n * 1000
-
-    f = open("Credits.txt")
-    print(f.readlines())
+            if password.isupper():
+                print("tolong perhatikan huruf kapital")
+                ulangi = input('ulangi ? Y/N : ')
+                if ulangi == 'Y' or ulangi == 'y':
+                    max = max + 1
+                else:
+                    sys.exit(0)
+            else:
+                print("password yang anda masukan salah")
+                ulangi = input('ulangi ? Y/N : ')
+                if ulangi == 'Y' or ulangi == 'y':
+                    max = max + 1
+                else:
+                    sys.exit(0)
 
 if __name__ == "__main__":
     main()
